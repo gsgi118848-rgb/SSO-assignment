@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>학사 대시보드 - 학교포털</title>
+  <style>
+    body { font-family: 'Malgun Gothic', sans-serif; background: #f0f4f8; margin: 0; }
+    header { background: #003876; color: white; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
+    nav a { color: white; margin-left: 16px; text-decoration: none; }
+    .container { max-width: 900px; margin: 30px auto; display: grid; gap: 20px; }
+    .card { background: white; padding: 24px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border-bottom: 1px solid #dee2e6; padding: 10px; text-align: left; }
+    .sso-banner { background: #e7f5ff; border-left: 5px solid #1c7ed6; padding: 16px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
+    .btn-elearning { background: #1c7ed6; color: white; padding: 10px 18px; text-decoration: none; border-radius: 6px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>🏛️ 학교포털 (서비스 A)</h2>
+    <nav>
+      <a href="/dashboard">학사대시보드</a>
+      <a href="/profile">내 학적/토큰정보</a>
+      <a href="/logout">로그아웃</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="sso-banner">
+      <div>
+        <strong>🔗 SSO 연계 서비스 바로가기</strong><br/>
+        <small>포털에 로그인된 상태로 별도 로그인 없이 이러닝 강의실에 접속할 수 있습니다.</small>
+      </div>
+      <a href="http://localhost:3002/courses" target="_blank" class="btn-elearning">이러닝 강의실 접속 (서비스 B) →</a>
+    </div>
+
+    <div class="card">
+      <h3>📢 학사 공지사항</h3>
+      <table>
+        <tr><th>번호</th><th>제목</th><th>등록일</th></tr>
+        <% academicData.notices.forEach(n => { %>
+          <tr><td><%= n.id %></td><td><%= n.title %></td><td><%= n.date %></td></tr>
+        <% }) %>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>📊 금학기 성적 조회 (<%= user.name %>)</h3>
+      <table>
+        <tr><th>과목명</th><th>학점</th><th>성적</th></tr>
+        <% academicData.grades.forEach(g => { %>
+          <tr><td><%= g.subject %></td><td><%= g.credit %></td><td><strong><%= g.grade %></strong></td></tr>
+        <% }) %>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

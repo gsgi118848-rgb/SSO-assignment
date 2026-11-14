@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>서비스 A - 학교포털 시스템</title>
+  <style>
+    body { font-family: 'Malgun Gothic', sans-serif; background: #f0f4f8; margin: 0; padding: 0; }
+    header { background: #003876; color: white; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
+    .container { max-width: 800px; margin: 40px auto; background: white; padding: 32px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    .btn { display: inline-block; padding: 10px 20px; background: #0056b3; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; }
+    .btn-secondary { background: #2b8a3e; margin-left: 8px; }
+    .btn-danger { background: #c92a2a; margin-left: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>🏛️ 국립대학교 통합 학교포털 (서비스 A)</h2>
+    <div>
+      <% if (user) { %>
+        <span><strong><%= user.name %></strong>님 환영합니다</span>
+        <a href="/logout" class="btn btn-danger">로그아웃</a>
+      <% } else { %>
+        <a href="/login" class="btn">통합 로그인 (SSO)</a>
+      <% } %>
+    </div>
+  </header>
+  <div class="container">
+    <h3>학사행정 및 통합정보 포털</h3>
+    <p>학적 조회, 성적 확인, 장학 신청 및 교내 주요 시스템(이러닝) 연동을 지원하는 학교 포털 서비스입니다.</p>
+    <hr />
+    <% if (user) { %>
+      <p>✅ <strong>Keycloak SSO 인증 완료</strong> 상태입니다.</p>
+      <a href="/dashboard" class="btn">학사 대시보드 바로가기</a>
+      <a href="http://localhost:3002" target="_blank" class="btn btn-secondary">이러닝(서비스 B)으로 이동 ↗</a>
+    <% } else { %>
+      <p>학사 서비스를 이용하려면 학교 통합 계정으로 로그인해 주세요.</p>
+      <a href="/login" class="btn">Keycloak 통합 로그인</a>
+    <% } %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>내 강의실 - 이러닝 시스템</title>
+  <style>
+    body { font-family: 'Malgun Gothic', sans-serif; background: #f3f0ff; margin: 0; }
+    header { background: #5f3dc4; color: white; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
+    nav a { color: white; margin-left: 16px; text-decoration: none; }
+    .container { max-width: 900px; margin: 30px auto; }
+    .course-card { background: white; padding: 20px 24px; border-radius: 10px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .progress-bar { background: #e9ecef; border-radius: 8px; height: 12px; width: 100%; margin: 10px 0; overflow: hidden; }
+    .progress-fill { background: #7048e8; height: 100%; width: 0%; transition: width 0.3s ease; }
+    .badge { background: #f3f0ff; color: #5f3dc4; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>💻 사이버캠퍼스 이러닝 (서비스 B)</h2>
+    <nav>
+      <a href="/courses">내 강의실</a>
+      <a href="/profile">수강생 정보</a>
+      <a href="/logout">로그아웃</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h3>📚 <%= user.name %>님의 2026-2학기 수강 강좌 목록</h3>
+    <% courseList.forEach(function(c) { %>
+      <div class="course-card">
+        <span class="badge"><%= c.code %></span>
+        <h4 style="margin: 8px 0;"><%= c.title %> (<%= c.professor %>)</h4>
+        <div>온라인 강의 진도율: <strong><%= c.progress %>%</strong></div>
+        <div class="progress-bar">
+          <div class="progress-fill" data-progress="<%= c.progress %>"></div>
+        </div>
+        <small>과제 현황: <strong><%= c.assignment %></strong></small>
+      </div>
+    <% }); %>
+  </div>
+
+  <script>
+    document.querySelectorAll('.progress-fill').forEach(function(el) {
+      el.style.width = el.getAttribute('data-progress') + '%';
+    });
+  </script>
+</body>
+</html>
